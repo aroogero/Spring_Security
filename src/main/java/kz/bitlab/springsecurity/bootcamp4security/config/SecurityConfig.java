@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity //будет защищать методы - сюда только админам можно, студентам нельзя. Механизм настроен. Просто нужно осилить его
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.formLogin()
                 .loginPage("/sign-in") //страница входа будет называться так
                 .loginProcessingUrl("/to-enter") //<form action = "/to-enter"> - страница куда отправить после авторизации
@@ -20,5 +20,11 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/profile")  //когда успешно зашел return "redirect:/profile" - if success
                 .usernameParameter("user_email") //<input type = "email" name = "user_email"> - мы говорим встреть user_email - это и есть username - переписываем название инпута
                 .passwordParameter("user_password"); //<input type = "password" name = "user_password>
+
+        http.logout()
+            .logoutUrl("/to-exit")  //отправляем Пост запрос в to exit чтобы выйти - этого недостаточно, он не должен там застрять
+            .logoutSuccessUrl("/sign-in");
+
+        return http.build();
     }
 }
