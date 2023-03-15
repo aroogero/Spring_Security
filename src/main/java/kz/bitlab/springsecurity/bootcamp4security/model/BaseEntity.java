@@ -3,6 +3,7 @@ package kz.bitlab.springsecurity.bootcamp4security.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 
