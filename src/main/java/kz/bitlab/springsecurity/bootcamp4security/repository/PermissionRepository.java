@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public class PermissionRepository extends JpaRepository<User, Long> {
+public interface PermissionRepository extends JpaRepository<User, Long> {
 }
