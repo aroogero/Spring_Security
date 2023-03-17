@@ -37,7 +37,7 @@ public class SecurityConfig {
         http.formLogin()
                 .loginPage("/sign-in") //страница входа будет называться так
                 .loginProcessingUrl("/to-enter") //<form action = "/to-enter"> - страница куда отправить после авторизации
-                .failureUrl("/sign-in") //если выйдет какая-то ошибка - return "redirect:/sign-in?error" - if error
+                .failureUrl("/sign-in?userError") //если выйдет какая-то ошибка - return "redirect:/sign-in?error" - if error
                 .defaultSuccessUrl("/profile")  //когда успешно зашел return "redirect:/profile" - if success
                 .usernameParameter("user_email") //<input type = "email" name = "user_email"> - мы говорим встреть user_email - это и есть username - переписываем название инпута
                 .passwordParameter("user_password"); //<input type = "password" name = "user_password>
