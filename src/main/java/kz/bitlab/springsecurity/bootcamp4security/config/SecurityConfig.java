@@ -32,7 +32,7 @@ public class SecurityConfig {
                     http.getSharedObject(AuthenticationManagerBuilder.class); //способ инициализации в Spring Security
             authenticationManagerBuilder.userDetailsService(userService()) //userService - вот этот чувак, будет его userDetailsService-ом
                     .passwordEncoder(passwordEncoder()); //моим паролевским проверятелям будет passwordEncoder
-
+        //Если выйдет ошибка с доступом, перенаправит на эту страницу
         http.exceptionHandling().accessDeniedPage("/403"); //страница которая скажет ДОСТУП ЗАПРЕЩЕН - ее сами придумали - это наш собственный контроллер
 
         http.formLogin()
@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .usernameParameter("user_email") //<input type = "email" name = "user_email"> - мы говорим встреть user_email - это и есть username - переписываем название инпута
                 .passwordParameter("user_password"); //<input type = "password" name = "user_password>
 
-        http.logout()
+        http.logout() //прекращает сессию
                 .logoutUrl("/to-exit")  //отправляем Пост запрос в to exit чтобы выйти - этого недостаточно, он не должен там застрять
                 .logoutSuccessUrl("/sign-in");
 
