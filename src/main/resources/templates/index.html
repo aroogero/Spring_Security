@@ -6,8 +6,9 @@
     <title>Title</title>
 </head>
 <body>
-<!--#authentication.principal - это зарегистрированная штука - возвращает объект данной сессии - тема секьюрити-->
-  <h1>WELCOME <span th:text="${#authentication.principal.fullName}"></span></h1>
+<h1>WELCOME
+    <span th:text="${#authentication.principal.fullName}"></span>
+</h1>
   <a th:href="@{'/sign-in'}">CLICK HERE TO LOGIN</a>
 </body>
 </html>

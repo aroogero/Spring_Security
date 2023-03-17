@@ -6,7 +6,8 @@
     <title>Title</title>
 </head>
 <body>
-<h1>WELCOME TO PROFILE</h1>
+<!--#authentication.principal - это зарегистрированная штука - возвращает объект данной сессии - тема секьюрити-->
+<h1>WELCOME <span th:text="${#authentication.principal.fullName}"></span></h1>
 <form th:action="@{'/to-exit'}" method="post">
 <button>SIGN OUT</button>
 </form>
