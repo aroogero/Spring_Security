@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +10,8 @@
 <body>
 <!--#authentication.principal - это зарегистрированная штука - возвращает объект данной сессии - тема секьюрити-->
 <h1>WELCOME <span th:text="${#authentication.principal.fullName}"></span></h1>
+<a th:href="@{'/'}">HOME PAGE</a>
+<a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:href="@{'/admin'}">ADMIN PAGE</a>
 <form th:action="@{'/to-exit'}" method="post">
 <button>SIGN OUT</button>
 </form>
