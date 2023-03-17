@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<!--это таймлиф секьюрити - это нужно для того, чтобы на уровне таймлифа использовать секьюрити-->
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>WELCOME
-    <span th:text="${#authentication.principal.fullName}"></span>
+    <span sec:authorize="isAuthenticated()" th:text="${#authentication.principal.fullName}"></span>
+    <span sec:authorize="isAnonymous()">UNKNOWN</span>
+    <!--Это фронтендовская тема - чтобы на уровне html что то показывать и не показывать-->
 </h1>
   <a th:href="@{'/sign-in'}">CLICK HERE TO LOGIN</a>
 </body>
