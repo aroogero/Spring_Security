@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 //Сервис пользуется всеми благами Репозитори
-@Service //прямая связь, когда ты с имплементацией в виде простого класса пишешь - без интерфейса
+//Будем использовать его как Сервис, но мы его реализуем как Бин
 public class UserService implements UserDetailsService {
     //UserDetailsService - один из видов сервиса, который делает аутентификацию по юзернейму
     //у него есть абстрактный метод loadUserByUsername(String username) - подтянуть юзера по его уникальной юзернейм

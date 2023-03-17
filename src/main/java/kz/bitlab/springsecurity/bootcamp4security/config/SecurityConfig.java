@@ -1,18 +1,39 @@
 package kz.bitlab.springsecurity.bootcamp4security.config;
 
+import kz.bitlab.springsecurity.bootcamp4security.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity //будет защищать методы - сюда только админам можно, студентам нельзя. Механизм настроен. Просто нужно осилить его
+@EnableMethodSecurity
+//будет защищать методы - сюда только админам можно, студентам нельзя. Механизм настроен. Просто нужно осилить его
 public class SecurityConfig {
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public UserService userService() { //превратили в Бин, для того тобы использовать его
+        return new UserService();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() { //это такой интерфейс, который говорит какой вид алгоритма ты будешь использовать
+        return new BCryptPasswordEncoder(); //это будет моим шифровальщиком
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+            AuthenticationManagerBuilder authenticationManagerBuilder =
+                    http.getSharedObject(AuthenticationManagerBuilder.class); //способ инициализации в Spring Security
+            authenticationManagerBuilder.userDetailsService(userService()) //userService - вот этот чувак, будет его userDetailsService-ом
+                    .passwordEncoder(passwordEncoder()); //моим паролевским проверятелям будет passwordEncoder
+
         http.formLogin()
                 .loginPage("/sign-in") //страница входа будет называться так
                 .loginProcessingUrl("/to-enter") //<form action = "/to-enter"> - страница куда отправить после авторизации
@@ -22,8 +43,8 @@ public class SecurityConfig {
                 .passwordParameter("user_password"); //<input type = "password" name = "user_password>
 
         http.logout()
-            .logoutUrl("/to-exit")  //отправляем Пост запрос в to exit чтобы выйти - этого недостаточно, он не должен там застрять
-            .logoutSuccessUrl("/sign-in");
+                .logoutUrl("/to-exit")  //отправляем Пост запрос в to exit чтобы выйти - этого недостаточно, он не должен там застрять
+                .logoutSuccessUrl("/sign-in");
 
         return http.build();
     }
