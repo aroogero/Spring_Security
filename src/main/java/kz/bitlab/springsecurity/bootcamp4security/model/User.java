@@ -1,9 +1,6 @@
 package kz.bitlab.springsecurity.bootcamp4security.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +24,10 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "full_name")
     private String fullName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //по умолчанию всегда равняется LAZY
+    //Когда подтяшиваем юзера, из-за LAZY, он Permission не подтягивает, он становится нуллом
+    //EAGER(мгновенно) подтягивает всю таблицу
+    //при Секьюрити аутентикейшн нам нужен Игер чтобы мы мгновенно и Юзер с Пермишноном подтянули, чтобы определиться с его ролью
     private List<Permission> permissions;
 
     @Override
