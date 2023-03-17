@@ -13,8 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
-//будет защищать методы - сюда только админам можно, студентам нельзя. Механизм настроен. Просто нужно осилить его
+@EnableMethodSecurity //будет защищать методы - сюда только админам можно, студентам нельзя. Механизм настроен. Просто нужно осилить его
 public class SecurityConfig {
 
     @Bean
@@ -33,6 +32,8 @@ public class SecurityConfig {
                     http.getSharedObject(AuthenticationManagerBuilder.class); //способ инициализации в Spring Security
             authenticationManagerBuilder.userDetailsService(userService()) //userService - вот этот чувак, будет его userDetailsService-ом
                     .passwordEncoder(passwordEncoder()); //моим паролевским проверятелям будет passwordEncoder
+
+        http.exceptionHandling().accessDeniedPage("/403"); //страница которая скажет ДОСТУП ЗАПРЕЩЕН - ее сами придумали - это наш собственный контроллер
 
         http.formLogin()
                 .loginPage("/sign-in") //страница входа будет называться так
