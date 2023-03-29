@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<!--это таймлиф секьюрити - это нужно для того, чтобы на уровне таймлифа использовать секьюрити-->
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>WELCOME
-    <span sec:authorize="isAuthenticated()" th:text="${#authentication.principal.fullName}"></span>
-    <span sec:authorize="isAnonymous()">UNKNOWN</span>
-    <!--Это фронтендовская тема - чтобы на уровне html что то показывать и не показывать-->
-</h1>
-<a th:href="@{'/sign-in'}">CLICK HERE TO LOGIN</a>
-<a th:href="@{'/profile'}" sec:authorize = "isAuthenticated()">GO TO PROFILE</a>
-</body>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate = "main_layout.html"
+>
+<div layout:fragment="content">
+    <h1>WELCOME
+        <span sec:authorize="isAuthenticated()" th:text="${#authentication.principal.fullName}"></span>
+        <span sec:authorize="isAnonymous()">UNKNOWN</span>
+        <!--Это фронтендовская тема - чтобы на уровне html что то показывать и не показывать-->
+    </h1>
+    <a th:href="@{'/sign-in'}">CLICK HERE TO LOGIN</a>
+    <a th:href="@{'/profile'}" sec:authorize = "isAuthenticated()">GO TO PROFILE</a>
+</div>
 </html>
