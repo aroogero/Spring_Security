@@ -14,7 +14,9 @@
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{'/'}">Security Sample</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -36,8 +38,14 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
                             <li><a class="dropdown-item" th:href="@{'/'}">Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <form th:action="@{'/to-exit'}" method="post">
+                                <li>
+                                    <button class="dropdown-item">Sign out</button>
+                                </li>
+                            </form>
                         </ul>
                     </li>
                 </ul>
@@ -52,7 +60,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
-            <div layout:fragment = 'content'>
+            <div layout:fragment='content'>
 
             </div>
         </div>
