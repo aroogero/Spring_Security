@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate = "main_layout.html"
 >
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<!--#authentication.principal - это зарегистрированная штука - возвращает объект данной сессии - тема секьюрити-->
-<h1>WELCOME <span th:text="${#authentication.principal.fullName}"></span></h1>
-<a th:href="@{'/'}">HOME PAGE</a>
-<a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:href="@{'/admin'}">ADMIN PAGE</a>
-<form th:action="@{'/to-exit'}" method="post">
-<button>SIGN OUT</button>
-</form>
-</body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">WELCOME <span th:text="${#authentication.principal.fullName}"></span></h1>
+        </div>
+    </div>
+</div>
 </html>
