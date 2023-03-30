@@ -41,9 +41,10 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <form th:action="@{'/to-exit'}" method="post">
+                            <form th:action="@{'/to-exit'}" method="post" id="exitForm">
                                 <li>
-                                    <button class="dropdown-item">Sign out</button>
+                                    <!--Чтобы он никуда не двигался Джава Скрипт прописываем, если решетку напишем обратно вверх пойдет-->
+                                    <a href="JavaScript: void(0)" onclick="document.getElementById('exitForm').submit()" class="dropdown-item">Sign out</a>
                                 </li>
                             </form>
                         </ul>
