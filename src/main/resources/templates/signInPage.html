@@ -8,6 +8,10 @@
 <div layout:fragment="content">
   <div class="row">
     <div class="col-6 mx-auto">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if = "${param.usererror != null}">
+        Incorrect email or password!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       <form th:action="@{'/to-enter'}" method="post">
         <div class="row">
           <div class="col-12">
