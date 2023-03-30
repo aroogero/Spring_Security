@@ -6,12 +6,6 @@
       layout:decorate = "main_layout.html"
 >
 <div layout:fragment="content">
-    <h1>WELCOME
-        <span sec:authorize="isAuthenticated()" th:text="${#authentication.principal.fullName}"></span>
-        <span sec:authorize="isAnonymous()">UNKNOWN</span>
-        <!--Это фронтендовская тема - чтобы на уровне html что то показывать и не показывать-->
-    </h1>
-    <a th:href="@{'/sign-in'}">CLICK HERE TO LOGIN</a>
-    <a th:href="@{'/profile'}" sec:authorize = "isAuthenticated()">GO TO PROFILE</a>
+
 </div>
 </html>
