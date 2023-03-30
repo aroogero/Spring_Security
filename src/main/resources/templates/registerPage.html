@@ -8,6 +8,18 @@
 <div layout:fragment="content">
   <div class="row">
     <div class="col-6 mx-auto">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if = "${param.usererror != null}">
+        Email is busy!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if = "${param.passworderror != null}">
+        Password are not same!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <div class="alert alert-success alert-dismissible fade show" role="alert" th:if = "${param.success != null}">
+        User added successfully!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       <form th:action="@{'/to-register'}" method="post">
         <div class="row">
           <div class="col-12">
