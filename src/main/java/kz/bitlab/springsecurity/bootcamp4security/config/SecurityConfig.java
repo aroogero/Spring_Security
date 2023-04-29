@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .logoutUrl("/to-exit")  //отправляем Пост запрос в to exit чтобы выйти - этого недостаточно, он не должен там застрять
                 .logoutSuccessUrl("/sign-in");
 
+        http.csrf().disable(); //уникальный токен для mvc паттерна - генерирует, чтобы мы не отправляли Пост запрос
         return http.build();
     }
 }
