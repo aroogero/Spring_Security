@@ -1,5 +1,7 @@
 package kz.bitlab.springsecurity.bootcamp4security.controller;
 
+import kz.bitlab.springsecurity.bootcamp4security.model.Post;
+import kz.bitlab.springsecurity.bootcamp4security.service.PostService;
 import kz.bitlab.springsecurity.bootcamp4security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PostService postService;
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -62,5 +67,11 @@ public class HomeController {
         } else {
             return "redirect:/sign-up?usererror";
         }
+    }
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PostMapping(value = "/add-news")
+    public String addPost(Post post) { //здесь неизвестен автор
+        postService.createPost(post);
+        return "redirect:/admin?success";
     }
 }
