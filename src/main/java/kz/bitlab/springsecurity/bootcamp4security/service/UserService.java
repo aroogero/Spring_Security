@@ -66,7 +66,7 @@ public class UserService implements UserDetailsService {
         return result;
     }
 
-    public User getCurrentUser() {  //со стороны Джава будет подтягивать пользователя из сессии
+    public User getCurrentUser() {  //со стороны Джава будет подтягивать текущего пользователя из сессии
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //SecurityContextHolder - СпрингСекюровский хранитель, грубо говоря сессия секюрити
         //getContext().getAuthentication() - возвращает authentication

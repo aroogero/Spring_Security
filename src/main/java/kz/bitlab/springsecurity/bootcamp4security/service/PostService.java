@@ -12,7 +12,11 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private UserService userService; //сервис может подтягивать другого сервиса
     public Post createPost(Post post) {
+        post.setAuthor(userService.getCurrentUser()); //добавили автора вытащив его из сессии
         return postRepository.save(post);
     }
 
