@@ -5,6 +5,9 @@ import kz.bitlab.springsecurity.bootcamp4security.model.User;
 import kz.bitlab.springsecurity.bootcamp4security.repository.PermissionRepository;
 import kz.bitlab.springsecurity.bootcamp4security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -61,5 +64,16 @@ public class UserService implements UserDetailsService {
             }
         }
         return result;
+    }
+
+    public User getCurrentUser() {  //со стороны Джава будет подтягивать пользователя из сессии
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //SecurityContextHolder - СпрингСекюровский хранитель, грубо говоря сессия секюрити
+        //getContext().getAuthentication() - возвращает authentication
+        if (!(authentication instanceof AnonymousAuthenticationToken)) { //говорим если он не анонимный
+            User user = (User) authentication.getPrincipal(); //достает в виде объекта и поэтому мы его конвертируем в User
+            return user;
+        }
+        return null;
     }
 }

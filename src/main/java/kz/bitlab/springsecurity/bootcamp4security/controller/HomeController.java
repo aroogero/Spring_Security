@@ -70,7 +70,7 @@ public class HomeController {
     }
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/add-news")
-    public String addPost(Post post) { //здесь неизвестен автор
+    public String addPost(Post post) { //здесь неизвестен кто автор при добавлении поста
         postService.createPost(post);
         return "redirect:/admin?success";
     }
