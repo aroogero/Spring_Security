@@ -3,10 +3,7 @@ package kz.bitlab.springsecurity.bootcamp4security.api;
 import kz.bitlab.springsecurity.bootcamp4security.model.Post;
 import kz.bitlab.springsecurity.bootcamp4security.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class PostController {
 
     @Autowired
     private PostService postService;
-    @GetMapping//у него нет никакой ссылки - это означает что ссылка по умолчанию будет вытаскивать все данные - /api/post
+    @GetMapping//у него нет никакой ссылки - это означает что ссылка по умолчанию всегда будет вытаскивать все данные - /api/post
     public List<Post> getPosts() {
         return postService.getPosts();
     }
@@ -26,5 +23,10 @@ public class PostController {
     @GetMapping(value = "{id}")//если хотим посмотреть только один пост
     public Post getPost(@PathVariable(name = "id") Long id) {
         return postService.getPost(id);
+    }
+
+    @PostMapping//Этот запрос отправляем по то же ссылке что и наверху - по ссылке по умолчанию - но методом Пост
+    public Post addPost(@RequestBody Post post) { //RequestBody рестовская тема относится к контроллерам
+        return postService.createPost(post);
     }
 }
