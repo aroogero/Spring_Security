@@ -30,8 +30,13 @@ public class PostController {
         return postService.createPost(post);
     }
 
-    @PutMapping
+    @PutMapping//добавление и изменение одинаковые Put и Post одинаковы, просто метод другой
     public Post updatePost(@RequestBody Post post) {
         return postService.updatePost(post);
     }
+    @DeleteMapping("{id}") //удаление делает по id, поэтому пихаем айди
+    public void deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
+    }
+
 }
