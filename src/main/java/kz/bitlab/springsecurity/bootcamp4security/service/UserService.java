@@ -71,8 +71,7 @@ public class UserService implements UserDetailsService {
         //SecurityContextHolder - СпрингСекюровский хранитель, грубо говоря сессия секюрити
         //getContext().getAuthentication() - возвращает authentication
         if (!(authentication instanceof AnonymousAuthenticationToken)) { //говорим если он не анонимный
-            User user = (User) authentication.getPrincipal(); //достает в виде объекта и поэтому мы его конвертируем в User
-            return user;
+            return (User) authentication.getPrincipal(); //достает в виде объекта и поэтому мы его конвертируем в User
         }
         return null;
     }
