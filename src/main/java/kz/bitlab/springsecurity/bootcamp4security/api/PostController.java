@@ -29,4 +29,9 @@ public class PostController {
     public Post addPost(@RequestBody Post post) { //RequestBody рестовская тема относится к контроллерам
         return postService.createPost(post);
     }
+
+    @PutMapping
+    public Post updatePost(@RequestBody Post post) {
+        return postService.updatePost(post);
+    }
 }
