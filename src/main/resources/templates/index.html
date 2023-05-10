@@ -6,6 +6,14 @@
       layout:decorate = "main_layout.html"
 >
 <div layout:fragment="content">
-
+    <div th:each="post : ${posts}" class="p-3 mb-2" style="background-color: #dde9fd">
+        <h3 th:text = "${post.title}"></h3>
+        <article>
+            <p th:text="${post.content}"></p>
+            <p>
+                Posted by <strong th:text="${post.author.fullName}"></strong>
+            </p>
+        </article>
+    </div>
 </div>
 </html>
